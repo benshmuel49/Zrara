@@ -16,6 +16,7 @@ import { getError } from '../utils';
 import { Store } from '../Store';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { toast } from 'react-toastify';
+import Product from '../components/Product';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -145,7 +146,7 @@ function ProductScreen() {
                 numReviews={product.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Pirce : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>first Price : ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               <Row xs={1} md={2} className="g-2">
                 {[product.image, ...product.images].map((x) => (
@@ -176,8 +177,10 @@ function ProductScreen() {
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
-                    <Col>Price:</Col>
-                    <Col>${product.price}</Col>
+                    <Col>first Price:</Col>
+                    <Col>${Product.basePrice}</Col>
+                    <Col>bid Price:</Col>
+                    <Col>${product.currentPrice}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>

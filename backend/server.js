@@ -11,10 +11,13 @@ import uploadRouter from './routes/uploadRoutes.js';
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect((`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@ZRARA.yt3fcwd.mongodb.net/?retryWrites=true&w=majority
+
+  `))
+  // .connect(process.env.MONGODB_URI)
   .then(() => {
-    console.log('connected to db');
-  })
+    console.log('connected to db'||'not connected to db');
+  }) 
   .catch((err) => {
     console.log(err.message);
   });
@@ -47,7 +50,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5003;
 app.listen(port, () => {
   console.log(`serve at http://localhost:${port}`);
 });

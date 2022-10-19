@@ -10,16 +10,50 @@ productRouter.get('/', async (req, res) => {
   res.send(products);
 });
 
+// ** to add auction option  
+
+// productRouter.patch('/:id', ( req,res,next) => {
+//   console.log("update the bit");
+//   const id = req.params.id
+//   const email = req.body.email
+//   const bit = req.body.bit
+//   const newBit={[`${isAuth}`]:bit};
+//   auction= Auction.findOne({_id:id })
+//   .then((data) =>{
+//     lengthOBited=data?.bidPrice.length-1
+//     const LastBid = Object.values(data?.Bited[lengthOBited])[0];
+
+//     console.log(bit);
+//     if (bit>firstBid) {
+//       Auction.findOneAndUpdate({_id:id }, {bidPrice:[...data.bidPrice,newBit]},{ returnDocument: 'after' },function(err, doc){
+//         res.json(data)
+//         if(err){
+//             console.log("Something wrong when updating data!");
+//           }
+//           console.log(doc);
+//         })
+//       }
+//       else{
+//         console.log("the bit is low!");
+//         next()
+//       }
+//   }
+//   )
+//   .catch(next)
+// }
+// )
+
+
 productRouter.post(
   '/',
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const newProduct = new Product({
+    const newBid = new Product({
       name: 'sample name ' + Date.now(),
       slug: 'sample-name-' + Date.now(),
       image: '/images/p1.jpg',
-      price: 0,
+      firstprice: 0,
       category: 'sample category',
       brand: 'sample brand',
       countInStock: 0,
@@ -27,7 +61,7 @@ productRouter.post(
       numReviews: 0,
       description: 'sample description',
     });
-    const product = await newProduct.save();
+    const product = await newBid.save();
     res.send({ message: 'Product Created', product });
   })
 );
@@ -42,7 +76,8 @@ productRouter.put(
     if (product) {
       product.name = req.body.name;
       product.slug = req.body.slug;
-      product.price = req.body.price;
+      product.firstprice = req.body.firstprice; 
+
       product.image = req.body.image;
       product.images = req.body.images;
       product.category = req.body.category;
